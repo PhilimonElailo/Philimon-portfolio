@@ -99,7 +99,7 @@ section h2 {
     display: flex;
     align-items: center;
     background:
-        linear-gradient(rgba(19, 28, 35, 0.76), rgba(19, 28, 35, 0.7)),
+        linear-gradient(rgba(19, 28, 35, 0.58), rgba(19, 28, 35, 0.52)),
         url(img1.jpg) center/cover no-repeat;
     color: #fff9f1;
 }
@@ -116,11 +116,13 @@ section h2 {
     padding: 0.45rem 0.85rem;
     margin-bottom: 1.25rem;
     border-radius: 999px;
-    background: rgba(255, 247, 235, 0.14);
-    border: 1px solid rgba(255, 247, 235, 0.22);
+    background: rgba(19, 28, 35, 0.72);
+    border: 1px solid rgba(255, 247, 235, 0.34);
     font-family: Arial, Helvetica, sans-serif;
     font-size: 0.9rem;
     letter-spacing: 0.03em;
+    color: #fff9f1;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
 }
 
 .hero-content h1 {
@@ -138,7 +140,12 @@ section h2 {
 .hero-description {
     max-width: 680px;
     font-size: 1.12rem;
-    color: rgba(255, 249, 241, 0.88);
+    color: #fffdf8;
+    background: rgba(19, 28, 35, 0.64);
+    border: 1px solid rgba(255, 249, 241, 0.16);
+    border-radius: 18px;
+    padding: 1rem 1.15rem;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
     margin-bottom: 1.5rem;
 }
 
@@ -152,10 +159,12 @@ section h2 {
 .hero-tags span {
     padding: 0.7rem 1rem;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(19, 28, 35, 0.72);
+    border: 1px solid rgba(255, 249, 241, 0.28);
     font-family: Arial, Helvetica, sans-serif;
     font-size: 0.95rem;
+    color: #fff9f1;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
 }
 
 .hero-actions {
@@ -170,16 +179,17 @@ section h2 {
     justify-content: center;
     min-width: 160px;
     padding: 0.95rem 1.35rem;
-    border: 1px solid transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 999px;
     text-decoration: none;
     cursor: pointer;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 0.98rem;
     font-weight: 700;
-    background: var(--primary);
+    background: rgba(154, 52, 18, 0.92);
     color: #fff;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
 }
 
 .cta-button:hover {
@@ -189,20 +199,33 @@ section h2 {
 }
 
 .cta-button.secondary {
-    background: transparent;
-    color: #fff;
-    border-color: rgba(255, 255, 255, 0.48);
+    background: rgba(255, 249, 241, 0.92);
+    color: var(--primary-dark);
+    border-color: rgba(255, 249, 241, 0.92);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
 }
 
 .cta-button.secondary:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: #ffffff;
+    color: var(--primary-dark);
+    border-color: #ffffff;
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.24);
+}
+
+.hero .cta-button.secondary {
+    backdrop-filter: blur(6px);
+}
+
+.hero .cta-button:first-child {
+    background: linear-gradient(135deg, #9a3412, #c2410c);
+    color: #fff;
 }
 
 .hero-card {
     padding: 1.5rem;
     border-radius: 24px;
-    background: rgba(255, 253, 248, 0.12);
-    border: 1px solid rgba(255, 253, 248, 0.2);
+    background: rgba(19, 28, 35, 0.74);
+    border: 1px solid rgba(255, 253, 248, 0.24);
     box-shadow: var(--shadow);
     backdrop-filter: blur(10px);
 }
@@ -212,7 +235,7 @@ section h2 {
     text-transform: uppercase;
     letter-spacing: 0.08em;
     font-size: 0.8rem;
-    color: #ffd59e;
+    color: #ffe1b3;
     margin-bottom: 0.8rem;
 }
 
@@ -233,7 +256,7 @@ section h2 {
 
 .hero-card p:last-child {
     margin-top: 1rem;
-    color: rgba(255, 249, 241, 0.82);
+    color: rgba(255, 249, 241, 0.95);
 }
 
 .about {
