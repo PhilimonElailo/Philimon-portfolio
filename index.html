@@ -5,28 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Philimon Lopeyok Elailo | Portfolio</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/x-icon" href="profile.jpg">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container">
-            <a class="logo" href="#home">Philimon Lopeyok Elailo</a>
-            <ul class="nav-menu">
+    <header class="mobile-header">
+        <button class="hamburger" aria-label="Open menu">☰</button>
+        <a class="mobile-logo" href="#home">Philimon</a>
+    </header>
+    <aside class="sidebar">
+        <div class="sidebar-inner container">
+            <img src="profile.jpg" alt="Portrait of Philimon Lopeyok Elailo" class="profile-pic sidebar-pic">
+            <ul class="nav-menu sidebar-nav">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
                 <li><a href="#focus">Focus</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+            <a class="cta-button secondary resume-link" href="resume.pdf.pdf" download>Download Resume</a>
         </div>
-    </nav>
+    </aside>
 
+    <main class="main-content">
     <section id="home" class="hero">
         <div class="container hero-shell">
             <div class="hero-content">
                 <p class="eyebrow">Portfolio in web development, training, and digital storytelling</p>
                 <h1>Philimon Lopeyok Elailo</h1>
-                <p class="hero-subtitle">Web Developer, Trainer, and Digital Storyteller</p>
+                <p class="hero-subtitle">Web Developer, Trainer and Digital Storyteller</p>
                 <p class="hero-description">
                     I create practical learning experiences, teach web development, and use digital storytelling
                     to make ideas clear, engaging, and relevant to different audiences.
@@ -38,7 +45,7 @@
                 </div>
                 <div class="hero-actions">
                     <a class="cta-button" href="#projects">View Projects</a>
-                    <a class="cta-button secondary" href="Philimon_Lopeyok_CV.pdf" download>Download CV</a>
+                    <a class="cta-button secondary" href="resume.pdf.pdf" download>Download CV</a>
                     <a class="cta-button secondary" href="#contact">Get In Touch</a>
                 </div>
             </div>
@@ -46,7 +53,6 @@
                 <p class="hero-card-label">Contact</p>
                 <a href="mailto:Philimonlopeyokelailo@gmail.com">Philimonlopeyokelailo@gmail.com</a>
                 <a href="tel:+254794632912">+254 794 632 912</a>
-                <a href="Philimon_Lopeyok_CV.pdf" class="hero-card-link" download>Download CV</a>
                 <p>
                     Currently teaching and mentoring at Learning Lions with a strong interest in tech education,
                     learner-centered content, and creative communication.
@@ -57,54 +63,91 @@
 
     <section id="about" class="about">
         <div class="container">
-            <h2>About Me</h2>
+            <h2>About</h2>
             <div class="about-content">
                 <img src="profile.jpg" alt="Portrait of Philimon Lopeyok Elailo" class="profile-pic">
                 <div class="about-copy">
                     <p class="description">
-                        I am a web developer and trainer with experience in technical instruction, learner support,
-                        and audience engagement. My work combines hands-on web development with communication skills
-                        built through training and customer-facing roles.
+                        I am a versatile, results-driven Digital Skills Trainer and Web Developer specializing in
+                        educational technology, program facilitation, and multidisciplinary mentorship. Currently serving
+                        as a Trainer at Mobile Leap (Learning Lions), I manage end-to-end curriculum delivery by
+                        designing high-impact, learner-centered sessions, tracking participant progress, and evaluating
+                        performance. My background allows me to confidently mentor students across both technical tracks,
+                        such as web development, and creative digital disciplines, ensuring a holistic approach to skill
+                        acquisition.
                     </p>
                     <p class="description">
-                        At Learning Lions, I teach web development and mentor learners as they build practical digital
-                        skills. Before that, I worked in sales at SunKing and M-KOPA for three years, where I learned
-                        how to understand user needs, explain products clearly, and support adoption at the community level.
-                    </p>
-                    <p class="description">
-                        I am especially interested in opportunities where I can help shape curriculum, produce engaging
-                        learning content, and use storytelling to make technology education more relevant and accessible.
+                        By seamlessly blending a solid technical foundation with modern instructional methodologies, I
+                        excel at breaking down complex concepts into structured, practical, and highly accessible learning
+                        experiences. I thrive in project-based environments, guiding trainees from fundamental concepts to
+                        real-world application. Whether working independently or collaborating within multidisciplinary
+                        teams, I am deeply committed to leveraging technology and interactive delivery to empower learners
+                        and scale impactful educational programs.
                     </p>
                 </div>
             </div>
 
             <div class="skills-section">
-                <h3>Core Strengths</h3>
+                <h3>Skills</h3>
                 <div class="skills-grid">
-                    <div class="skill-item">
-                        <span class="skill-icon">01</span>
-                        <p>Curriculum Support</p>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-icon">02</span>
-                        <p>Web Development</p>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-icon">03</span>
-                        <p>Technical Training</p>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-icon">04</span>
-                        <p>Video Storytelling</p>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-icon">05</span>
-                        <p>Community Engagement</p>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-icon">06</span>
-                        <p>Team Collaboration</p>
-                    </div>
+                    <div class="skill-item"><span class="skill-icon">01</span><p>Time management</p></div>
+                    <div class="skill-item"><span class="skill-icon">02</span><p>Adaptability & learner experience</p></div>
+                    <div class="skill-item"><span class="skill-icon">03</span><p>Problem solving & troubleshooting</p></div>
+                    <div class="skill-item"><span class="skill-icon">04</span><p>Training & session management</p></div>
+                    <div class="skill-item"><span class="skill-icon">05</span><p>Progress tracking & monitoring</p></div>
+                    <div class="skill-item"><span class="skill-icon">06</span><p>Feedback & performance evaluation</p></div>
+                    <div class="skill-item"><span class="skill-icon">07</span><p>Documentation & record keeping</p></div>
+                    <div class="skill-item"><span class="skill-icon">08</span><p>Communication & presentation</p></div>
+                    <div class="skill-item"><span class="skill-icon">09</span><p>Instructional & facilitation skills</p></div>
+                    <div class="skill-item"><span class="skill-icon">10</span><p>Asha Expert</p></div>
+                    <div class="skill-item"><span class="skill-icon">11</span><p>Customer service</p></div>
+                    <div class="skill-item"><span class="skill-icon">12</span><p>Mentorship & Coaching</p></div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="experience" class="experience-section">
+        <div class="container">
+            <h2>Work Experience</h2>
+            <div class="projects-grid">
+                    <article class="project-card">
+                        <p class="project-type">Coach — Mobile Leap 13</p>
+                        <h3>Part-time — Loropio</h3>
+                        <p class="muted">Feb - Mar 2026 • 6 weeks</p>
+                        <p>
+                            Instructional delivery and facilitation of learner-centered training sessions; performance
+                            tracking and analytics to monitor participant milestones; data-driven mentorship and targeted
+                            interventions; documentation and reporting; and ensuring quality assurance and alignment with
+                            pedagogical standards.
+                        </p>
+                    </article>
+                    <article class="project-card">
+                        <p class="project-type">Coach — Mobile Leap 14</p>
+                        <h3>Part-time — Loropio</h3>
+                        <p class="muted">May - Jul 2026 • 6 weeks</p>
+                        <p>
+                            Continued instructional delivery, performance monitoring, mentorship, meticulous training
+                            records maintenance, and ensuring sessions align with organizational learning objectives and
+                            quality standards.
+                        </p>
+                    </article>
+                    <!-- Direct Sales Representative — M-Kopa entry removed per request -->
+                    <article class="project-card">
+                        <p class="project-type">Safaricom B.A</p>
+                        <h3>Part time</h3>
+                        <p class="muted">Feb 2023 - Feb 2026 • 3y • Namukuse Location</p>
+                        <ul>
+                            <li>Acquired new customers by promoting and registering SIM card services in line with company targets</li>
+                            <li>Performed accurate SIM registration and customer data capture in compliance with regulatory requirements</li>
+                            <li>Updated and maintained customer records in Safaricom systems, ensuring data accuracy and integrity</li>
+                            <li>Conducted customer verification (KYC) to support compliance and fraud prevention</li>
+                            <li>Created awareness of Safaricom products and services, improving customer adoption and engagement</li>
+                            <li>Provided frontline support and guidance to customers on service usage and account management</li>
+                            <li>Identified customer needs and relayed feedback to improve service delivery</li>
+                        </ul>
+                    </article>
                 </div>
             </div>
         </div>
@@ -202,6 +245,8 @@
             </form>
         </div>
     </section>
+
+    </main>
 
     <footer class="footer">
         <p>&copy; 2026 Philimon Lopeyok Elailo. All rights reserved.</p>

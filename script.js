@@ -37,3 +37,24 @@ document.querySelectorAll('.project-card').forEach(card => {
     card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     observer.observe(card);
 });
+
+// Sidebar toggle for mobile header
+document.addEventListener('DOMContentLoaded', function() {
+    const hamburger = document.querySelector('.hamburger');
+    const sidebar = document.querySelector('.sidebar');
+    if (hamburger && sidebar) {
+        hamburger.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+        // close sidebar when a nav link is clicked
+        sidebar.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => sidebar.classList.remove('open'));
+        });
+        // close when clicking outside the sidebar
+        document.addEventListener('click', (e) => {
+            if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
+    }
+});
