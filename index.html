@@ -1,73 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Philimon Lopeyok Elailo | Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Philimon Lopeyok Elailo | Web Developer & Trainer</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>" />
 </head>
 <body>
-    <header class="mobile-header">
-        <button class="hamburger" aria-label="Open menu">☰</button>
-        <a class="mobile-logo" href="#home">Philimon</a>
-    </header>
-    <aside class="sidebar">
-        <div class="sidebar-inner container">
-            <img src="profile.jpg" alt="Portrait of Philimon Lopeyok Elailo" class="profile-pic sidebar-pic">
-            <ul class="nav-menu sidebar-nav">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#focus">Focus</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <a class="cta-button secondary resume-link" href="resume.pdf.pdf" download>Download Resume</a>
-        </div>
-    </aside>
 
-    <main class="main-content">
-    <section id="home" class="hero">
-        <div class="container hero-shell">
-            <div class="hero-content">
-                <p class="eyebrow">Portfolio in web development, training, and digital storytelling</p>
-                <h1>Philimon Lopeyok Elailo</h1>
-                <p class="hero-subtitle">Web Developer, Trainer and Digital Storyteller</p>
-                <p class="hero-description">
-                    I create practical learning experiences, teach web development, and use digital storytelling
-                    to make ideas clear, engaging, and relevant to different audiences.
-                </p>
-                <div class="hero-tags">
-                    <span>Technical Training</span>
-                    <span>Curriculum Support</span>
-                    <span>Video Storytelling</span>
-                </div>
-                <div class="hero-actions">
-                    <a class="cta-button" href="#projects">View Projects</a>
-                    <a class="cta-button secondary" href="resume.pdf.pdf" download>Download CV</a>
-                    <a class="cta-button secondary" href="#contact">Get In Touch</a>
-                </div>
+    <!-- ============ NAVIGATION ============ -->
+    <nav class="nav" id="navbar">
+        <div class="nav-inner">
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#experience">Experience</a>
+                <a href="#focus">Focus</a>
+                <a href="#projects">Projects</a>
             </div>
-            <div class="hero-card">
-                <p class="hero-card-label">Contact</p>
-                <a href="mailto:Philimonlopeyokelailo@gmail.com">Philimonlopeyokelailo@gmail.com</a>
-                <a href="tel:+254794632912">+254 794 632 912</a>
-                <p>
-                    Currently teaching and mentoring at Learning Lions with a strong interest in tech education,
-                    learner-centered content, and creative communication.
-                </p>
+            <div class="nav-right">
+                <a href="#contact" class="nav-cta">Get In Touch</a>
+                <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Nav Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNav">
+        <div class="mobile-nav-overlay-inner">
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#focus">Focus</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact" class="nav-cta">Get In Touch</a>
+        </div>
+    </div>
+
+    <!-- ============ HERO ============ -->
+    <section id="home" class="hero">
+        <div class="hero-bg">
+            <img src="profile.jpg" alt="Philimon Lopeyok Elailo" />
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge reveal">
+                <span class="hero-badge-dot"></span>
+                Available for opportunities
+            </div>
+            <h1 class="reveal">
+                Philimon<br />
+                <span class="highlight">Lopeyok Elailo</span>
+            </h1>
+            <p class="hero-subtitle reveal reveal-delay-1">
+                Web Developer, Trainer & Digital Storyteller
+            </p>
+            <p class="hero-desc reveal reveal-delay-2">
+                I create practical learning experiences, teach web development, and use digital storytelling
+                to make ideas clear, engaging, and relevant to different audiences.
+            </p>
+            <div class="hero-tags reveal reveal-delay-3">
+                <span>Technical Training</span>
+                <span>Curriculum Support</span>
+                <span>Video Storytelling</span>
+            </div>
+            <div class="hero-actions reveal reveal-delay-4">
+                <a href="#projects" class="btn btn-primary">View Projects</a>
+                <a href="resume.pdf.pdf" download class="btn btn-secondary">Download CV</a>
             </div>
         </div>
     </section>
 
+    <!-- ============ ABOUT ============ -->
     <section id="about" class="about">
         <div class="container">
-            <h2>About</h2>
-            <div class="about-content">
-                <img src="profile.jpg" alt="Portrait of Philimon Lopeyok Elailo" class="profile-pic">
-                <div class="about-copy">
-                    <p class="description">
+            <span class="section-label reveal">About</span>
+            <h2 class="section-title reveal">About Me</h2>
+            <div class="about-grid">
+                <div class="about-profile reveal">
+                    <img src="profile.jpg" alt="Philimon Lopeyok Elailo" />
+                    <div class="about-profile-socials">
+                        <a href="mailto:Philimonlopeyokelailo@gmail.com" aria-label="Email" title="Email">✉</a>
+                        <a href="tel:+254794632912" aria-label="Phone" title="Phone">📞</a>
+                        <a href="resume.pdf.pdf" download aria-label="Download Resume" title="Download Resume">📄</a>
+                    </div>
+                </div>
+                <div class="about-text reveal reveal-delay-1">
+                    <p>
                         I am a versatile, results-driven Digital Skills Trainer and Web Developer specializing in
                         educational technology, program facilitation, and multidisciplinary mentorship. Currently serving
                         as a Trainer at Mobile Leap (Learning Lions), I manage end-to-end curriculum delivery by
@@ -76,7 +94,7 @@
                         such as web development, and creative digital disciplines, ensuring a holistic approach to skill
                         acquisition.
                     </p>
-                    <p class="description">
+                    <p>
                         By seamlessly blending a solid technical foundation with modern instructional methodologies, I
                         excel at breaking down complex concepts into structured, practical, and highly accessible learning
                         experiences. I thrive in project-based environments, guiding trainees from fundamental concepts to
@@ -84,51 +102,46 @@
                         teams, I am deeply committed to leveraging technology and interactive delivery to empower learners
                         and scale impactful educational programs.
                     </p>
+
+                    <!-- Skills -->
+                    <div class="skills-section reveal reveal-delay-2">
+                        <h3>Skills & Competencies</h3>
+                        <div class="skills-grid">
+                            <span class="skill-badge">Time management</span>
+                            <span class="skill-badge">Adaptability & learner experience</span>
+                            <span class="skill-badge">Problem solving & troubleshooting</span>
+                            <span class="skill-badge">Training & session management</span>
+                            <span class="skill-badge">Progress tracking & monitoring</span>
+                            <span class="skill-badge">Feedback & performance evaluation</span>
+                            <span class="skill-badge">Documentation & record keeping</span>
+                            <span class="skill-badge">Communication & presentation</span>
+                            <span class="skill-badge">Instructional & facilitation skills</span>
+                            <span class="skill-badge">Asha Expert</span>
+                            <span class="skill-badge">Customer service</span>
+                            <span class="skill-badge">Mentorship & Coaching</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <div class="skills-section">
-                <h3>Skills</h3>
-                <div class="skills-grid">
-                    <div class="skill-item"><span class="skill-icon">01</span><p>Time management</p></div>
-                    <div class="skill-item"><span class="skill-icon">02</span><p>Adaptability & learner experience</p></div>
-                    <div class="skill-item"><span class="skill-icon">03</span><p>Problem solving & troubleshooting</p></div>
-                    <div class="skill-item"><span class="skill-icon">04</span><p>Training & session management</p></div>
-                    <div class="skill-item"><span class="skill-icon">05</span><p>Progress tracking & monitoring</p></div>
-                    <div class="skill-item"><span class="skill-icon">06</span><p>Feedback & performance evaluation</p></div>
-                    <div class="skill-item"><span class="skill-icon">07</span><p>Documentation & record keeping</p></div>
-                    <div class="skill-item"><span class="skill-icon">08</span><p>Communication & presentation</p></div>
-                    <div class="skill-item"><span class="skill-icon">09</span><p>Instructional & facilitation skills</p></div>
-                    <div class="skill-item"><span class="skill-icon">10</span><p>Asha Expert</p></div>
-                    <div class="skill-item"><span class="skill-icon">11</span><p>Customer service</p></div>
-                    <div class="skill-item"><span class="skill-icon">12</span><p>Mentorship & Coaching</p></div>
-                </div>
-            </div>
-
         </div>
     </section>
 
-    <section id="experience" class="experience-section">
+    <!-- ============ EXPERIENCE ============ -->
+    <section id="experience" class="experience">
         <div class="container">
-            <h2>Work Experience</h2>
-            <div class="projects-grid">
-                    <article class="project-card">
-                        <p class="project-type">Coach — Mobile Leap 13</p>
-                        <h3>Part-time — Loropio</h3>
-                        <p class="muted">Feb - Mar 2026 • 6 weeks</p>
-                        <ul>
-                            <li>Delivered learner-centered web development workshops and practical sessions</li>
-                            <li>Facilitated hands-on labs and live coding exercises to reinforce concepts</li>
-                            <li>Monitored participant progress and provided targeted mentorship</li>
-                            <li>Assessed trainee performance and maintained training records</li>
-                            <li>Prepared curriculum-aligned materials and exercises</li>
-                            <li>Compiled session reports and actionable feedback for program improvement</li>
-                        </ul>
-                    </article>
-                    <article class="project-card">
-                        <p class="project-type">Coach — Mobile Leap 14</p>
-                        <h3>Part-time — Loropio</h3>
-                        <p class="muted">May - Jul 2026 • 6 weeks</p>
+            <div class="timeline-header">
+                <span class="section-label reveal">Experience</span>
+                <h2 class="section-title reveal">Work Experience</h2>
+                <p class="section-sub reveal reveal-delay-1">My professional journey in training, coaching, and community engagement.</p>
+            </div>
+            <div class="timeline">
+                <!-- Experience 1 — Mobile Leap 14 (newest first) -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot active"></div>
+                    <div class="timeline-card">
+                        <span class="timeline-card-type">Coach — Mobile Leap 14</span>
+                        <h3>Part-time — Learning Lions</h3>
+                        <p class="timeline-card-date">May - Jul 2026 • 6 weeks</p>
                         <ul>
                             <li>Delivered advanced cohort sessions and project-based learning activities</li>
                             <li>Tracked performance metrics and provided one-on-one mentorship</li>
@@ -137,12 +150,34 @@
                             <li>Coached students through project milestones and code reviews</li>
                             <li>Collected and reported learner feedback for curriculum refinement</li>
                         </ul>
-                    </article>
-                    <!-- Direct Sales Representative — M-Kopa entry removed per request -->
-                    <article class="project-card">
-                        <p class="project-type">Safaricom B.A</p>
+                    </div>
+                </div>
+
+                <!-- Experience 2 — Mobile Leap 13 -->
+                <div class="timeline-item reveal reveal-delay-1">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="timeline-card-type">Coach — Mobile Leap 13</span>
+                        <h3>Part-time — Learning Lions</h3>
+                        <p class="timeline-card-date">Feb - Mar 2026 • 6 weeks</p>
+                        <ul>
+                            <li>Delivered learner-centered web development workshops and practical sessions</li>
+                            <li>Facilitated hands-on labs and live coding exercises to reinforce concepts</li>
+                            <li>Monitored participant progress and provided targeted mentorship</li>
+                            <li>Assessed trainee performance and maintained training records</li>
+                            <li>Prepared curriculum-aligned materials and exercises</li>
+                            <li>Compiled session reports and actionable feedback for program improvement</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Experience 3 — Safaricom -->
+                <div class="timeline-item reveal reveal-delay-2">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="timeline-card-type">Safaricom B.A</span>
                         <h3>Part time</h3>
-                        <p class="muted">Feb 2023 - Feb 2026 • 3y • Namukuse Location</p>
+                        <p class="timeline-card-date">Feb 2023 - Feb 2026 • 3y • Namukuse Location</p>
                         <ul>
                             <li>Acquired new customers by promoting and registering SIM card services in line with company targets</li>
                             <li>Performed accurate SIM registration and customer data capture in compliance with regulatory requirements</li>
@@ -152,18 +187,22 @@
                             <li>Provided frontline support and guidance to customers on service usage and account management</li>
                             <li>Identified customer needs and relayed feedback to improve service delivery</li>
                         </ul>
-                    </article>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="focus" class="focus-section">
+    <!-- ============ FOCUS / WHAT I BRING ============ -->
+    <section id="focus" class="focus">
         <div class="container">
-            <h2>What I Bring</h2>
+            <span class="section-label reveal">What I Bring</span>
+            <h2 class="section-title reveal">What I Bring</h2>
+            <p class="section-sub reveal reveal-delay-1">The value I deliver across training, content creation, and development.</p>
             <div class="focus-grid">
-                <article class="focus-card">
-                    <p class="focus-label">Education and Training</p>
+                <article class="focus-card reveal reveal-delay-2">
+                    <span class="focus-number">01</span>
+                    <p class="focus-card-label">Education and Training</p>
                     <h3>Clear, practical learning support</h3>
                     <p>
                         I bring hands-on web development knowledge, experience teaching learners, and the ability to
@@ -175,8 +214,9 @@
                         <li>Strong learner empathy from teaching and customer-facing roles</li>
                     </ul>
                 </article>
-                <article class="focus-card">
-                    <p class="focus-label">Creative Content</p>
+                <article class="focus-card reveal reveal-delay-3">
+                    <span class="focus-number">02</span>
+                    <p class="focus-card-label">Creative Content</p>
                     <h3>Storytelling with purpose</h3>
                     <p>
                         I use storytelling, visual thinking, and digital content skills to help transform ideas into
@@ -192,43 +232,55 @@
         </div>
     </section>
 
+    <!-- ============ PROJECTS ============ -->
     <section id="projects" class="projects">
         <div class="container">
-            <h2>Selected Projects</h2>
-            <p class="section-intro">
+            <span class="section-label reveal">Projects</span>
+            <h2 class="section-title reveal">Selected Projects</h2>
+            <p class="section-sub reveal reveal-delay-1">
                 These projects highlight my work across web development, storytelling, and audience-centered content creation.
             </p>
             <div class="projects-grid">
-                <article class="project-card">
-                    <p class="project-type">Web Project</p>
+                <article class="project-card reveal reveal-delay-2">
+                    <span class="project-card-type">Web Project</span>
+                    <h3>UCN — User-Centered Network</h3>
+                    <p>
+                        A user-centered platform designed with clean UI principles, focused on accessibility and intuitive navigation for community engagement.
+                    </p>
+                    <div class="project-card-links">
+                        <a href="https://philimonelailo.github.io/ucn/" target="_blank" rel="noopener noreferrer">Visit Website</a>
+                    </div>
+                </article>
+                <article class="project-card reveal reveal-delay-3">
+                    <span class="project-card-type">Web Project</span>
                     <h3>Lotinyang Hotel Website</h3>
                     <p>
                         A hotel website designed to present accommodation information clearly and create a welcoming
                         digital experience for potential guests.
                     </p>
-                    <div class="project-links">
+                    <div class="project-card-links">
                         <a href="https://philimonelailo.github.io/Lotinyang-hotel/" target="_blank" rel="noopener noreferrer">Visit Website</a>
                     </div>
                 </article>
-                <article class="project-card">
-                    <p class="project-type">Community Storytelling Platform</p>
+                <article class="project-card reveal reveal-delay-3">
+                    <span class="project-card-type">Community Storytelling Platform</span>
                     <h3>Lake Turkana Website</h3>
                     <p>
                         A storytelling website about Lake Turkana that shares stories from the region and gives users
                         space to contribute their own stories and pictures.
                     </p>
-                    <div class="project-links">
+                    <div class="project-card-links">
                         <a href="https://philimonelailo.github.io/Lake-turkana/" target="_blank" rel="noopener noreferrer">Visit Website</a>
                     </div>
                 </article>
-                <article class="project-card">
-                    <p class="project-type">Video Project</p>
+                <article class="project-card reveal reveal-delay-4">
+                    <span class="project-card-type">Video Project</span>
                     <h3>Short Documentary with Ateker Creatives Lab</h3>
                     <p>
                         A short documentary project developed with Ateker Creatives Lab that reflects my interest in
                         visual storytelling, narrative structure, and meaningful community-centered media.
                     </p>
-                    <div class="project-links">
+                    <div class="project-card-links">
                         <a href="https://drive.google.com/file/d/1bD_Xik3Jts8odHfQ8C1oH0r6eMhFnWz_/view?usp=sharing" target="_blank" rel="noopener noreferrer">Watch Documentary</a>
                     </div>
                 </article>
@@ -236,26 +288,55 @@
         </div>
     </section>
 
+    <!-- ============ CONTACT ============ -->
     <section id="contact" class="contact">
         <div class="container">
-            <h2>Get In Touch</h2>
-            <p class="contact-copy">
+            <span class="section-label reveal">Contact</span>
+            <h2 class="section-title reveal">Get In Touch</h2>
+            <p class="section-sub reveal reveal-delay-1">
                 I am open to opportunities in web development, training, curriculum support, and creative digital content.
             </p>
-            <form class="contact-form">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <textarea placeholder="Your Message" rows="5" required></textarea>
-                <button type="submit" class="cta-button">Send Message</button>
-            </form>
+            <div class="contact-info">
+                <div class="contact-details reveal reveal-delay-2">
+                    <div class="contact-detail-item">
+                        <span class="contact-detail-item-label">Email</span>
+                        <a href="mailto:Philimonlopeyokelailo@gmail.com">Philimonlopeyokelailo@gmail.com</a>
+                    </div>
+                    <div class="contact-detail-item">
+                        <span class="contact-detail-item-label">Phone</span>
+                        <a href="tel:+254794632912">+254 794 632 912</a>
+                    </div>
+                    <div class="contact-detail-item">
+                        <span class="contact-detail-item-label">Current Role</span>
+                        <p>Trainer at Mobile Leap (Learning Lions)</p>
+                    </div>
+                    <div class="contact-detail-item">
+                        <span class="contact-detail-item-label">Resume</span>
+                        <a href="resume.pdf.pdf" download>Download CV (PDF)</a>
+                    </div>
+                </div>
+                <form class="contact-form reveal reveal-delay-3">
+                    <input type="text" placeholder="Your Name" required />
+                    <input type="email" placeholder="Your Email" required />
+                    <textarea placeholder="Your Message" rows="5" required></textarea>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
         </div>
     </section>
 
-    </main>
-
+    <!-- ============ FOOTER ============ -->
     <footer class="footer">
+        <div class="footer-links">
+            <a href="mailto:Philimonlopeyokelailo@gmail.com">Email</a>
+            <a href="tel:+254794632912">Phone</a>
+            <a href="resume.pdf.pdf" download>Resume</a>
+        </div>
         <p>&copy; 2026 Philimon Lopeyok Elailo. All rights reserved.</p>
     </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
 
     <script src="script.js"></script>
 </body>
