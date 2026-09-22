@@ -1,187 +1,90 @@
-/* ============================================
-   Philimon's Portfolio — Interactions
-   Smooth scroll, reveal animations, mobile nav, contact form
-   ============================================ */
+document.documentElement.classList.add('js');
 
-/* --- Smooth Scroll for Anchor Links --- */
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-        const target = document.querySelector(targetId);
-        if (target) {
-            const navHeight = 72; // matches --nav-height in CSS
-            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-            });
-            // Close mobile nav if open
-            const mobileNav = document.getElementById('mobileNav');
-            if (mobileNav && mobileNav.classList.contains('open')) {
-                mobileNav.classList.remove('open');
-            }
-        }
-    });
+const header = document.getElementById('siteHeader');
+const menuToggle = document.getElementById('menuToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileMenuLinks = mobileMenu ? mobileMenu.querySelectorAll('a') : [];
+const desktopLinks = document.querySelectorAll('.desktop-nav a');
+const sections = document.querySelectorAll('main section[id]');
+
+function closeMenu() {
+  if (!menuToggle || !mobileMenu) return;
+  menuToggle.setAttribute('aria-expanded', 'false');
+  menuToggle.setAttribute('aria-label', 'Open menu');
+  mobileMenu.classList.remove('open');
+  mobileMenu.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('menu-open');
+}
+
+function toggleMenu() {
+  if (!menuToggle || !mobileMenu) return;
+  const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+  menuToggle.setAttribute('aria-expanded', String(!isOpen));
+  menuToggle.setAttribute('aria-label', isOpen ? 'Open menu' : 'Close menu');
+  mobileMenu.classList.toggle('open', !isOpen);
+  mobileMenu.setAttribute('aria-hidden', String(isOpen));
+  document.body.classList.toggle('menu-open', !isOpen);
+}
+
+menuToggle?.addEventListener('click', toggleMenu);
+mobileMenuLinks.forEach((link) => link.addEventListener('click', closeMenu));
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') closeMenu();
 });
 
-/* --- Mobile Navigation Toggle --- */
-const hamburger = document.getElementById('hamburger');
-const mobileNav = document.getElementById('mobileNav');
+function updateHeader() {
+  header?.classList.toggle('scrolled', window.scrollY > 12);
 
-if (hamburger && mobileNav) {
-    hamburger.addEventListener('click', () => {
-        mobileNav.classList.toggle('open');
-    });
-
-    // Close mobile nav when a link is clicked (handled above via anchor click)
-    // Close on outside click
-    mobileNav.addEventListener('click', (e) => {
-        if (e.target === mobileNav) {
-            mobileNav.classList.remove('open');
-        }
-    });
-}
-
-/* --- Scroll-triggered Reveal Animations (Intersection Observer) --- */
-const revealElements = document.querySelectorAll('.reveal');
-
-const observerOptions = {
-    threshold: 0.15,
-    rootMargin: '0px 0px -60px 0px'
-};
-
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('show');
-            revealObserver.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-
-revealElements.forEach(el => revealObserver.observe(el));
-
-/* --- Timeline dot animation on scroll --- */
-const timelineItems = document.querySelectorAll('.timeline-item');
-const timelineObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const dot = entry.target.querySelector('.timeline-dot');
-            if (dot) {
-                dot.classList.add('active');
-            }
-            timelineObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.3, rootMargin: '0px 0px -40px 0px' });
-
-timelineItems.forEach(item => timelineObserver.observe(item));
-
-/* --- Contact Form Handler --- */
-const contactForm = document.querySelector('.contact-form');
-if (contactForm) {
-    contactForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const btn = this.querySelector('button[type="submit"]');
-        const originalText = btn.textContent;
-        btn.textContent = '✓ Sent!';
-        btn.style.background = '#22c55e';
-        btn.style.color = '#fff';
-
-        setTimeout(() => {
-            btn.textContent = originalText;
-            btn.style.background = '';
-            btn.style.color = '';
-        }, 3000);
-
-        this.reset();
-    });
-}
-
-/* --- Navbar blur enhancement on scroll --- */
-const navbar = document.getElementById('navbar');
-let lastScrollY = 0;
-
-window.addEventListener('scroll', () => {
-    const scrollY = window.pageYOffset;
-    if (navbar) {
-        if (scrollY > 20) {
-            navbar.style.background = 'rgba(10, 10, 10, 0.92)';
-            navbar.style.borderBottomColor = 'rgba(255, 255, 255, 0.08)';
-        } else {
-            navbar.style.background = 'rgba(10, 10, 10, 0.85)';
-            navbar.style.borderBottomColor = 'rgba(255, 255, 255, 0.06)';
-        }
+  let activeId = '';
+  const marker = window.scrollY + window.innerHeight * 0.28;
+  sections.forEach((section) => {
+    if (marker >= section.offsetTop && marker < section.offsetTop + section.offsetHeight) {
+      activeId = section.id;
     }
-    lastScrollY = scrollY;
-}, { passive: true });
+  });
 
-/* --- Active nav link highlighting on scroll --- */
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-links a:not(.nav-cta)');
-
-function updateActiveLink() {
-    let current = '';
-    const scrollPos = window.pageYOffset + 120;
-
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionBottom = sectionTop + section.offsetHeight;
-        if (scrollPos >= sectionTop && scrollPos < sectionBottom) {
-            current = section.getAttribute('id');
-        }
-    });
-
-    navLinks.forEach(link => {
-        link.style.color = '';
-        link.style.background = '';
-        if (link.getAttribute('href') === `#${current}`) {
-            link.style.color = 'var(--text)';
-            link.style.background = 'rgba(255, 255, 255, 0.04)';
-        }
-    });
+  desktopLinks.forEach((link) => {
+    const isActive = link.getAttribute('href') === `#${activeId}`;
+    link.classList.toggle('active', isActive);
+    if (isActive) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  });
 }
 
-// Throttled scroll listener for performance
-let ticking = false;
-window.addEventListener('scroll', () => {
-    if (!ticking) {
-        window.requestAnimationFrame(() => {
-            updateActiveLink();
-            ticking = false;
-        });
-        ticking = true;
-    }
-}, { passive: true });
+window.addEventListener('scroll', updateHeader, { passive: true });
+updateHeader();
 
-// Initial call
-updateActiveLink();
-
-/* --- Back to Top Button --- */
-const backToTop = document.getElementById('backToTop');
-
-if (backToTop) {
-    // Show button once scrolled past the hero section
-    const heroSection = document.getElementById('home');
-    const heroOffset = heroSection ? heroSection.offsetHeight : window.innerHeight;
-
-    window.addEventListener('scroll', () => {
-        if (window.pageYOffset > heroOffset * 0.7) {
-            backToTop.classList.add('visible');
-        } else {
-            backToTop.classList.remove('visible');
-        }
-    }, { passive: true });
-
-    // Smooth scroll to top on click
-    backToTop.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+const revealItems = document.querySelectorAll('.reveal');
+if ('IntersectionObserver' in window) {
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
     });
+  }, { threshold: 0.12, rootMargin: '0px 0px -36px 0px' });
+
+  revealItems.forEach((item) => revealObserver.observe(item));
+} else {
+  revealItems.forEach((item) => item.classList.add('visible'));
 }
 
-console.log('🚀 Philimon\'s Portfolio — Redesign loaded');
+const contactForm = document.getElementById('contactForm');
+const formNote = document.getElementById('formNote');
+
+contactForm?.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const formData = new FormData(contactForm);
+  const name = formData.get('name').trim();
+  const email = formData.get('email').trim();
+  const message = formData.get('message').trim();
+  const subject = `Freelance enquiry from ${name}`;
+  const body = `Hello Philimon,\n\nMy name is ${name}.\nMy email is ${email}.\n\n${message}`;
+
+  if (formNote) formNote.textContent = 'Opening your email app with the message ready to send.';
+  window.location.href = `mailto:Philimon.elailo@learnings.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+});
+
+const year = document.getElementById('year');
+if (year) year.textContent = new Date().getFullYear();
