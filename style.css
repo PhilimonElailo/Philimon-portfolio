@@ -284,8 +284,11 @@ h1, h2, h3, p { margin-top: 0; }
 .project-type { margin-bottom: .45rem; color: var(--teal-dark); font-size: .69rem; font-weight: 850; letter-spacing: .09em; text-transform: uppercase; }
 .project-details h3 { margin-bottom: .55rem; font-size: 1.2rem; letter-spacing: -.045em; line-height: 1.1; }
 .project-details > p:not(.project-type) { min-height: 76px; margin-bottom: 1rem; color: var(--muted); font-size: .86rem; line-height: 1.5; }
-.project-details a { display: inline-flex; align-items: center; gap: .4rem; color: var(--ink); font-size: .82rem; font-weight: 850; margin-top: auto; }
-.project-details a span { color: var(--coral); font-size: 1.05rem; }
+.project-stack { display: flex; flex-wrap: wrap; gap: .45rem; margin: .1rem 0 1rem; }
+.project-stack span { display: inline-flex; padding: .28rem .52rem; border: 1px solid rgba(10, 46, 67, .15); border-radius: 999px; background: #ecf7f8; color: var(--ink); font-size: .62rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+.project-details a, .project-links a { display: inline-flex; align-items: center; gap: .4rem; color: var(--ink); font-size: .82rem; font-weight: 850; margin-top: auto; }
+.project-details a span, .project-links a span { color: var(--coral); font-size: 1.05rem; }
+.project-links { display: flex; flex-wrap: wrap; gap: .8rem 1.35rem; margin-top: .75rem; }
 
 .art-network { background: #0c2444; }
 .art-title { position: absolute; z-index: 2; top: 50%; left: 50%; color: var(--white); font-size: 3.7rem; font-weight: 850; letter-spacing: -.09em; transform: translate(-50%, -50%); }
@@ -293,11 +296,12 @@ h1, h2, h3, p { margin-top: 0; }
 .node-one { top: 25%; left: 22%; }.node-two { top: 65%; left: 33%; }.node-three { top: 29%; right: 23%; }
 .art-line { position: absolute; z-index: 1; height: 2px; background: var(--teal); transform-origin: left; opacity: .7; }
 .line-one { top: 34%; left: 28%; width: 42%; transform: rotate(-7deg); }.line-two { top: 42%; left: 27%; width: 24%; transform: rotate(59deg); }
-.art-hotel { display: grid; place-items: center; background: linear-gradient(155deg, #f8c872, #d95f4a 55%, #693a53); color: #fff6e2; }
-.art-hotel span { position: relative; z-index: 2; font-family: Georgia, serif; font-size: 1.5rem; letter-spacing: .15em; }
-.art-hotel i, .art-hotel b { position: absolute; width: 10rem; height: 10rem; border: 1px solid rgba(255,255,255,.55); border-radius: 50%; }.art-hotel i { top: -5rem; left: -2rem; }.art-hotel b { right: -4rem; bottom: -6rem; }
-.art-lake { background: linear-gradient(180deg, #95d9ed 0 47%, #126681 48% 65%, #e0a451 66%); color: #07334d; }
-.art-lake span { position: absolute; z-index: 2; top: 1.3rem; left: 1.3rem; font-size: 1.4rem; font-weight: 900; letter-spacing: -.08em; line-height: .82; }.art-lake i { position: absolute; width: 120%; height: 48%; left: -10%; bottom: -20%; border-radius: 50% 50% 0 0; background: #063f62; transform: rotate(-3deg); }
+.art-bmu { display: grid; place-items: center; background: linear-gradient(155deg, #1b7d78, #0d4c5f 52%, #e3b447); color: #effaf9; }
+.art-bmu span { position: relative; z-index: 2; font-size: 1.5rem; letter-spacing: .1em; line-height: 1.1; font-weight: 800; }
+.art-bmu i, .art-bmu b { position: absolute; width: 10rem; height: 10rem; border: 1px solid rgba(255,255,255,.5); border-radius: 50%; }.art-bmu i { top: -5rem; left: -2rem; }.art-bmu b { right: -4rem; bottom: -6rem; }
+.art-portfolio { display: grid; place-items: center; background: linear-gradient(180deg, #eef6ff 0%, #dfeeff 40%, #7fd0d7 100%); color: #0c2d45; }
+.art-portfolio span { position: relative; z-index: 2; font-size: 1.4rem; font-weight: 900; letter-spacing: .14em; }
+.art-portfolio i, .art-portfolio b { position: absolute; width: 11rem; height: 11rem; border: 1px solid rgba(12,45,69,.22); border-radius: 50%; }.art-portfolio i { top: -5rem; left: -2rem; }.art-portfolio b { right: -4rem; bottom: -6rem; }
 .experience { background: var(--white); }
 .experience-layout { display: grid; gap: 2.3rem; }
 .experience-intro > p:not(.eyebrow) { max-width: 410px; margin-bottom: 1.3rem; color: var(--muted); }
