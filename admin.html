@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#071527',
+            panel: '#0b1c31',
+            accent: '#23d3bd',
+            coral: '#ff765f',
+            lilac: '#b89bff'
+          }
+        }
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+  <style>
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(35, 211, 189, 0.14), transparent 25%),
+        radial-gradient(circle at bottom right, rgba(184, 155, 255, 0.12), transparent 30%),
+        #071527;
+    }
+
+    .input-shell {
+      width: 100%;
+      border-radius: 0.75rem;
+      border: 1px solid rgba(100, 116, 139, 0.9);
+      background: rgba(15, 23, 42, 0.72);
+      padding: 0.7rem 0.85rem;
+      font-size: 0.875rem;
+      color: #f8fafc;
+    }
+
+    .input-shell::placeholder {
+      color: rgba(148, 163, 184, 1);
+    }
+
+    .input-shell:focus {
+      border-color: #23d3bd;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(35, 211, 189, 0.18);
+    }
+
+    .panel-card {
+      border-radius: 1.25rem;
+      border: 1px solid rgba(51, 65, 85, 0.9);
+      background: rgba(15, 23, 42, 0.82);
+      box-shadow: 0 25px 50px rgba(2, 6, 23, 0.35);
+    }
+  </style>
+</head>
+<body class="min-h-screen text-slate-100 antialiased">
+  <div id="adminLogin" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/85 p-4 backdrop-blur-sm">
+    <div class="w-full max-w-md rounded-2xl border border-slate-700 bg-slate-900/90 p-6 shadow-2xl">
+      <p class="mb-2 text-xs font-bold uppercase tracking-[0.22em] text-accent">Protected access</p>
+      <h1 class="mb-5 text-2xl font-bold text-white">Portfolio Admin</h1>
+      <div class="space-y-4">
+        <div>
+          <label for="adminEmail" class="mb-2 block text-sm font-medium text-slate-200">Email</label>
+          <input id="adminEmail" type="email" class="input-shell" placeholder="admin@example.com" />
+        </div>
+        <div>
+          <label for="adminPassword" class="mb-2 block text-sm font-medium text-slate-200">Password</label>
+          <input id="adminPassword" type="password" class="input-shell" placeholder="••••••••" />
+        </div>
+      </div>
+      <button id="unlockAdminBtn" type="button" class="mt-5 w-full rounded-xl bg-accent px-4 py-3 font-bold text-slate-950 transition hover:bg-[#6ae7d4]">Sign in to admin panel</button>
+      <p id="loginError" class="mt-3 hidden text-sm text-red-400">Incorrect email or password. Please try again.</p>
+    </div>
+  </div>
+
+  <div id="adminContent" class="hidden min-h-screen p-4 md:p-8">
+    <div class="mx-auto max-w-7xl space-y-6">
+      <header class="flex flex-col gap-4 rounded-2xl border border-slate-700 bg-slate-900/80 p-5 shadow-lg md:flex-row md:items-center md:justify-between">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.24em] text-accent">Dashboard</p>
+          <h1 class="mt-2 text-3xl font-bold text-white">Project gallery manager</h1>
+        </div>
+        <button id="logoutAdminBtn" type="button" class="rounded-xl border border-slate-600 bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-200 transition hover:border-accent hover:text-white">Log out</button>
+      </header>
+
+      <main class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+        <section class="panel-card p-5 md:p-6">
+          <div class="mb-6 flex items-center justify-between gap-3">
+            <h2 id="formTitle" class="text-xl font-bold text-white">Add new project</h2>
+            <button id="cancelEditBtn" type="button" class="hidden rounded-lg border border-slate-600 px-3 py-1.5 text-sm font-medium text-slate-200 hover:border-accent hover:text-white">Cancel edit</button>
+          </div>
+
+          <form id="projectForm" class="space-y-4">
+            <div>
+              <label class="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-slate-300">Title</label>
+              <input id="projectTitle" name="title" class="input-shell" type="text" placeholder="Project Title" required>
+            </div>
+
+            <div>
+              <label class="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-slate-300">Type</label>
+              <select id="projectType" name="type" class="input-shell">
+                <option value="web">Web Development</option>
+                <option value="video">Video</option>
+              </select>
+            </div>
+
+            <div id="webFields" class="space-y-4">
+              <div>
+                <label class="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-slate-300">Project URL</label>
+                <input id="projectUrl" name="projectUrl" class="input-shell" type="url" placeholder="https://example.com" >
+              </div>
+              <div>
+                <label class="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-slate-300">GitHub URL</label>
+                <input id="githubUrl" name="githubUrl" class="input-shell" type="url" placeholder="https://github.com/your-project" >
+              </div>
+            </div>
+
+            <div id="videoFields" class="hidden space-y-4">
+              <div>
+                <label class="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-slate-300">Upload .mp4 video</label>
+                <input id="videoFile" name="videoFile" class="input-shell block w-full cursor-pointer rounded-xl border border-dashed border-slate-600 bg-slate-900/70 px-3 py-3 text-sm text-slate-200 file:mr-4 file:rounded-lg file:border-0 file:bg-accent file:px-3 file:py-2 file:text-sm file:font-semibold file:text-slate-950" type="file" accept=".mp4,video/mp4">
+              </div>
+              <div>
+                <label class="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-slate-300">Video URL (optional if already uploaded)</label>
+                <input id="videoUrl" name="videoUrl" class="input-shell" type="url" placeholder="Public video URL">
+              </div>
+            </div>
+
+            <div>
+              <label class="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-slate-300">Description</label>
+              <textarea id="projectDescription" name="description" class="input-shell min-h-[120px] resize-y" placeholder="Short project summary" required></textarea>
+            </div>
+
+            <div id="tagsField">
+              <label class="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-slate-300">Tags</label>
+              <input id="projectTags" name="tags" class="input-shell" type="text" placeholder="HTML5, CSS3, JavaScript">
+            </div>
+
+            <div class="flex flex-wrap gap-3 pt-2">
+              <button type="submit" class="rounded-xl bg-accent px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-[#6ae7d4]">Save project</button>
+              <button id="resetFormBtn" type="button" class="rounded-xl border border-slate-600 bg-slate-800 px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-accent hover:text-white">Reset</button>
+            </div>
+
+            <p id="formMessage" class="hidden rounded-lg border border-slate-700 bg-slate-800/70 px-3 py-2 text-sm text-slate-100"></p>
+          </form>
+        </section>
+
+        <section class="panel-card p-5 md:p-6">
+          <div class="mb-5 flex items-center justify-between gap-2">
+            <h2 class="text-xl font-bold text-white">Project order</h2>
+            <span id="projectCount" class="rounded-full border border-slate-600 bg-slate-800 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-200">0 items</span>
+          </div>
+
+          <ul id="projectList" class="space-y-3"></ul>
+          <p id="projectListEmpty" class="hidden rounded-xl border border-dashed border-slate-600 bg-slate-900/60 p-4 text-sm text-slate-300">No projects added yet.</p>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const defaultProjects = [
+      { id: 'demo-web-1', title: 'UCN', type: 'web', description: 'A clean, community-focused website connecting youth and women to support, programs, and opportunities.', tags: ['HTML5', 'CSS3', 'JavaScript'], media_url: '', project_url: 'https://philimonelailo.github.io/ucn/', display_order: 1 },
+      { id: 'demo-web-2', title: 'Longech BMU & Fish Market', type: 'web', description: 'A community-driven portal for beach cleanups, member registration, and a marketplace for local trade.', tags: ['HTML5', 'CSS3', 'JavaScript', 'Tailwind CSS'], media_url: '', project_url: 'https://philimonelailo.github.io/Fish-market/', display_order: 2 },
+      { id: 'demo-video-1', title: 'Brand Story Reel', type: 'video', description: 'A short branded video concept built for storytelling and audience engagement.', tags: ['Video Editing', 'Storytelling', 'Social Media'], media_url: 'https://www.w3schools.com/html/mov_bbb.mp4', project_url: '', display_order: 3 }
+    ];
+
+    const adminLogin = document.getElementById('adminLogin');
+    const adminContent = document.getElementById('adminContent');
+    const adminEmail = document.getElementById('adminEmail');
+    const adminPassword = document.getElementById('adminPassword');
+    const loginError = document.getElementById('loginError');
+    const unlockAdminBtn = document.getElementById('unlockAdminBtn');
+    const logoutAdminBtn = document.getElementById('logoutAdminBtn');
+    const projectForm = document.getElementById('projectForm');
+    const projectType = document.getElementById('projectType');
+    const webFields = document.getElementById('webFields');
+    const videoFields = document.getElementById('videoFields');
+    const projectTitle = document.getElementById('projectTitle');
+    const projectDescription = document.getElementById('projectDescription');
+    const projectTags = document.getElementById('projectTags');
+    const projectUrl = document.getElementById('projectUrl');
+    const githubUrl = document.getElementById('githubUrl');
+    const videoUrl = document.getElementById('videoUrl');
+    const tagsField = document.getElementById('tagsField');
+    const formMessage = document.getElementById('formMessage');
+    const projectList = document.getElementById('projectList');
+    const projectCount = document.getElementById('projectCount');
+    const formTitle = document.getElementById('formTitle');
+    const cancelEditBtn = document.getElementById('cancelEditBtn');
+    const resetFormBtn = document.getElementById('resetFormBtn');
+
+    let currentEditId = null;
+
+    function getProjects() {
+      try {
+        const saved = JSON.parse(localStorage.getItem('portfolio_projects') || 'null');
+        if (Array.isArray(saved) && saved.length) return saved;
+      } catch (error) {
+        console.warn('Could not read saved projects.', error);
+      }
+      localStorage.setItem('portfolio_projects', JSON.stringify(defaultProjects));
+      return defaultProjects;
+    }
+
+    function saveProjects(projects) {
+      localStorage.setItem('portfolio_projects', JSON.stringify(projects));
+    }
+
+    function setAdminSession(isOpen) {
+      localStorage.setItem('portfolio_admin_session', isOpen ? 'true' : 'false');
+      adminLogin.classList.toggle('hidden', isOpen);
+      adminContent.classList.toggle('hidden', !isOpen);
+    }
+
+    function showMessage(message, isError = false) {
+      formMessage.textContent = message;
+      formMessage.classList.remove('hidden', 'text-red-300', 'text-green-300');
+      formMessage.classList.add(isError ? 'text-red-300' : 'text-green-300');
+      formMessage.classList.remove('hidden');
+    }
+
+    function hideMessage() {
+      formMessage.textContent = '';
+      formMessage.classList.add('hidden');
+    }
+
+    function toggleProjectFields() {
+      const isVideo = projectType.value === 'video';
+      webFields.classList.toggle('hidden', isVideo);
+      videoFields.classList.toggle('hidden', !isVideo);
+      tagsField.classList.toggle('hidden', isVideo);
+      projectTags.required = !isVideo;
+      if (isVideo) {
+        projectTags.value = '';
+      }
+    }
+
+    function renderProjects() {
+      const projects = getProjects();
+      projectList.innerHTML = '';
+
+      projects.forEach((project) => {
+        const item = document.createElement('li');
+        item.className = 'flex items-center gap-3 rounded-xl border border-slate-700 bg-slate-950/70 p-3';
+        item.innerHTML = `
+          <button type="button" class="drag-handle cursor-grab rounded-lg border border-slate-600 bg-slate-800 px-2 py-1 text-lg text-slate-200 active:cursor-grabbing" aria-label="Drag to reorder">⋮⋮</button>
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center gap-2 text-sm text-slate-300">
+              <span class="rounded-full border border-slate-600 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-accent">${project.type}</span>
+              <span class="text-[10px] uppercase tracking-[0.18em] text-slate-400">#${Number(project.display_order || 0)}</span>
+            </div>
+            <p class="mt-1 truncate text-base font-semibold text-white">${project.title}</p>
+          </div>
+          <div class="flex shrink-0 gap-2">
+            <button type="button" data-edit="${project.id}" class="rounded-lg border border-slate-600 bg-slate-800 px-3 py-2 text-xs font-semibold text-slate-200 transition hover:border-accent hover:text-white">Edit</button>
+            <button type="button" data-delete="${project.id}" class="rounded-lg border border-red-500/50 bg-red-500/10 px-3 py-2 text-xs font-semibold text-red-300 transition hover:bg-red-500/20">Delete</button>
+          </div>
+        `;
+        projectList.appendChild(item);
+      });
+
+      projectCount.textContent = `${projects.length} item${projects.length === 1 ? '' : 's'}`;
+
+      projectList.querySelectorAll('[data-edit]').forEach((button) => {
+        button.addEventListener('click', () => editProject(button.dataset.edit));
+      });
+
+      projectList.querySelectorAll('[data-delete]').forEach((button) => {
+        button.addEventListener('click', () => deleteProject(button.dataset.delete));
+      });
+    }
+
+    function resetForm() {
+      projectForm.reset();
+      projectType.value = 'web';
+      currentEditId = null;
+      formTitle.textContent = 'Add new project';
+      cancelEditBtn.classList.add('hidden');
+      toggleProjectFields();
+      hideMessage();
+    }
+
+    function normalizeTags(rawTags) {
+      return String(rawTags || '')
+        .split(',')
+        .map((tag) => tag.trim())
+        .filter(Boolean);
+    }
+
+    function editProject(id) {
+      const project = getProjects().find((item) => item.id === id);
+      if (!project) return;
+      currentEditId = id;
+      formTitle.textContent = 'Edit project';
+      cancelEditBtn.classList.remove('hidden');
+      projectTitle.value = project.title || '';
+      projectType.value = project.type || 'web';
+      projectDescription.value = project.description || '';
+      projectTags.value = Array.isArray(project.tags) ? project.tags.join(', ') : (project.tags || '');
+      projectUrl.value = project.project_url || '';
+      githubUrl.value = project.project_url || '';
+      videoUrl.value = project.media_url || '';
+      toggleProjectFields();
+      hideMessage();
+    }
+
+    function deleteProject(id) {
+      if (!confirm('Delete this project?')) return;
+      const nextProjects = getProjects().filter((item) => item.id !== id);
+      saveProjects(nextProjects);
+      renderProjects();
+      if (currentEditId === id) resetForm();
+      showMessage('Project deleted successfully.');
+    }
+
+    function handleSubmit(event) {
+      event.preventDefault();
+
+      const title = projectTitle.value.trim();
+      const description = projectDescription.value.trim();
+      const currentType = projectType.value;
+      const tags = normalizeTags(projectTags.value);
+
+      if (!title || !description) {
+        showMessage('Please complete the required fields before saving.', true);
+        return;
+      }
+
+      if (currentType === 'web' && !tags.length) {
+        showMessage('Tags are required for website projects.', true);
+        return;
+      }
+
+      const projects = getProjects();
+      const payload = {
+        title,
+        description,
+        tags: currentType === 'web' ? tags : [],
+        type: currentType,
+        project_url: currentType === 'web' ? (projectUrl.value.trim() || githubUrl.value.trim() || '') : '',
+        media_url: currentType === 'video' ? (videoUrl.value.trim() || '') : '',
+        display_order: 1
+      };
+
+      if (currentEditId) {
+        const index = projects.findIndex((item) => item.id === currentEditId);
+        if (index !== -1) projects[index] = { ...projects[index], ...payload, id: currentEditId };
+      } else {
+        const nextOrder = projects.reduce((highest, item) => Math.max(highest, Number(item.display_order || 0)), 0) + 1;
+        projects.push({ id: `local-${Date.now()}`, ...payload, display_order: nextOrder });
+      }
+
+      saveProjects(projects);
+      renderProjects();
+      resetForm();
+      showMessage(currentEditId ? 'Project updated successfully.' : 'Project created successfully.');
+      currentEditId = null;
+    }
+
+    function handleUnlock() {
+      const email = adminEmail.value.trim();
+      const password = adminPassword.value.trim();
+
+      if (!email || !password) {
+        loginError.textContent = 'Please enter your email and password.';
+        loginError.classList.remove('hidden');
+        return;
+      }
+
+      if (email === 'admin@portfolio.local' && password === 'portfolio-admin-2026') {
+        loginError.classList.add('hidden');
+        adminEmail.value = '';
+        adminPassword.value = '';
+        setAdminSession(true);
+        renderProjects();
+        return;
+      }
+
+      loginError.textContent = 'Incorrect email or password. Please try again.';
+      loginError.classList.remove('hidden');
+    }
+
+    function handleLogout() {
+      setAdminSession(false);
+      adminEmail.value = '';
+      adminPassword.value = '';
+      loginError.classList.add('hidden');
+      resetForm();
+    }
+
+    unlockAdminBtn.addEventListener('click', handleUnlock);
+    adminPassword.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') handleUnlock();
+    });
+    logoutAdminBtn.addEventListener('click', handleLogout);
+    projectType.addEventListener('change', toggleProjectFields);
+    projectForm.addEventListener('submit', handleSubmit);
+    cancelEditBtn.addEventListener('click', resetForm);
+    resetFormBtn.addEventListener('click', resetForm);
+
+    if (localStorage.getItem('portfolio_admin_session') === 'true') {
+      setAdminSession(true);
+      renderProjects();
+    } else {
+      setAdminSession(false);
+      renderProjects();
+    }
+
+    toggleProjectFields();
+  </script>
+</body>
+</html>
