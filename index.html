@@ -174,62 +174,27 @@
           <a class="inline-social-link" href="https://github.com/philimonelailo" target="_blank" rel="noopener noreferrer">More on GitHub <span aria-hidden="true">↗</span></a>
         </div>
 
-        <div class="project-grid">
-          <article class="project-card reveal">
-            <div class="project-art art-network" aria-hidden="true">
-              <span class="art-node node-one"></span><span class="art-node node-two"></span><span class="art-node node-three"></span><span class="art-line line-one"></span><span class="art-line line-two"></span>
-              <span class="art-title">UCN</span>
-            </div>
-            <div class="project-details">
-              <p class="project-type">Community platform · Web</p>
-              <h3>UCN</h3>
-              <p>A clean, community-focused website connecting youth and women to support, programs, and opportunities.</p>
-              <div class="project-stack" aria-label="Tech stack">
-                <span>HTML5</span>
-                <span>CSS3</span>
-                <span>JavaScript</span>
-              </div>
-              <a href="https://philimonelailo.github.io/ucn/" target="_blank" rel="noopener noreferrer">Visit project <span aria-hidden="true">↗</span></a>
-            </div>
-          </article>
-
-          <article class="project-card reveal">
-            <div class="project-art art-bmu" aria-hidden="true"><span>LONGECH<br>BMU</span><i></i><b></b></div>
-            <div class="project-details">
-              <p class="project-type">Community portal · Web</p>
-              <h3>Longech Beach Management Unit &amp; Fish Market</h3>
-              <p>A community-driven Longech BMU portal that supports beach cleanups, water-level awareness, member registration, and a fresh fish marketplace for local trade and community engagement.</p>
-              <div class="project-stack" aria-label="Tech stack">
-                <span>HTML5</span>
-                <span>CSS3</span>
-                <span>JavaScript</span>
-                <span>Tailwind CSS</span>
-              </div>
-              <a href="https://philimonelailo.github.io/Fish-market/" target="_blank" rel="noopener noreferrer">Visit project <span aria-hidden="true">↗</span></a>
-            </div>
-          </article>
-
-          <article class="project-card reveal">
-            <div class="project-art art-portfolio" aria-hidden="true"><span>PORTFOLIO</span><i></i><b></b></div>
-            <div class="project-details">
-              <p class="project-type">Portfolio · Web</p>
-              <h3>Personal Portfolio Website</h3>
-              <p>A personal portfolio website showcasing digital skills training, web development, business process support, and community-focused digital work.</p>
-              <div class="project-stack" aria-label="Tech stack">
-                <span>HTML5</span>
-                <span>CSS3</span>
-                <span>JavaScript</span>
-                <span>GitHub Pages</span>
-              </div>
-              <div class="project-links">
-                <a href="https://philimonelailo.github.io/" target="_blank" rel="noopener noreferrer">Live demo <span aria-hidden="true">↗</span></a>
-                <a href="https://github.com/philimonelailo" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
-              </div>
-            </div>
-          </article>
+        <div class="project-toolbar">
+          <div class="project-filters" id="projectFilters" aria-label="Project categories">
+            <button class="filter-tab active" type="button" data-filter="all">All</button>
+            <button class="filter-tab" type="button" data-filter="web">Web Development</button>
+            <button class="filter-tab" type="button" data-filter="video">Video Editing</button>
+          </div>
         </div>
+
+        <div class="project-grid" id="projectGrid" aria-live="polite"></div>
+        <div class="project-state" id="projectState" hidden>No projects available for this filter yet.</div>
       </div>
     </section>
+
+    <div class="video-modal" id="videoModal" aria-hidden="true">
+      <div class="video-modal-backdrop" data-close-video-modal="true"></div>
+      <div class="video-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="videoModalTitle">
+        <button class="video-modal-close" type="button" aria-label="Close video" data-close-video-modal="true">×</button>
+        <p class="video-modal-title" id="videoModalTitle">Project video</p>
+        <video id="videoPlayer" controls playsinline preload="metadata" src=""></video>
+      </div>
+    </div>
 
     <section class="experience section" id="experience">
       <div class="content-width experience-layout">
@@ -320,10 +285,207 @@
     <div class="content-width footer-inner">
       <a class="brand" href="#home" aria-label="Back to top"><span class="brand-mark">PL</span><span>Philimon Elailo<span class="brand-dot">.</span></span></a>
       <p>© <span id="year"></span> portfolio</p>
-      <a href="resume.pdf" download>Resume <span aria-hidden="true">↓</span></a>
+      <div class="footer-actions">
+        <a href="resume.pdf" download>Resume <span aria-hidden="true">↓</span></a>
+        <a class="footer-admin-link" href="admin.html" aria-label="Open admin panel">Admin</a>
+      </div>
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const projectGrid = document.getElementById('projectGrid');
+    const projectState = document.getElementById('projectState');
+    const filterTabs = document.querySelectorAll('.filter-tab');
+    const videoModal = document.getElementById('videoModal');
+    const videoPlayer = document.getElementById('videoPlayer');
+    const videoModalTitle = document.getElementById('videoModalTitle');
+
+    const defaultProjects = [
+      {
+        id: 'demo-web-1',
+        title: 'UCN',
+        type: 'web',
+        description: 'A clean, community-focused website connecting youth and women to support, programs, and opportunities.',
+        tags: ['HTML5', 'CSS3', 'JavaScript'],
+        media_url: '',
+        project_url: 'https://philimonelailo.github.io/ucn/',
+        display_order: 1
+      },
+      {
+        id: 'demo-web-2',
+        title: 'Longech BMU & Fish Market',
+        type: 'web',
+        description: 'A community-driven portal for beach cleanups, member registration, and a marketplace for local trade.',
+        tags: ['HTML5', 'CSS3', 'JavaScript', 'Tailwind CSS'],
+        media_url: '',
+        project_url: 'https://philimonelailo.github.io/Fish-market/',
+        display_order: 2
+      },
+      {
+        id: 'demo-video-1',
+        title: 'Brand Story Reel',
+        type: 'video',
+        description: 'A short branded video concept built for storytelling and audience engagement.',
+        tags: ['Video Editing', 'Storytelling', 'Social Media'],
+        media_url: 'https://www.w3schools.com/html/mov_bbb.mp4',
+        project_url: '',
+        display_order: 3
+      }
+    ];
+
+    function getLocalProjects() {
+      try {
+        const saved = localStorage.getItem('portfolio_projects');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length) return parsed;
+        }
+      } catch (error) {
+        console.warn('Unable to read local project cache.', error);
+      }
+      localStorage.setItem('portfolio_projects', JSON.stringify(defaultProjects));
+      return defaultProjects;
+    }
+
+    function escapeHtml(value = '') {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function getProjectTags(project) {
+      if (Array.isArray(project.tags)) return project.tags.filter(Boolean);
+      if (!project.tags) return [];
+      return String(project.tags).split(',').map((tag) => tag.trim()).filter(Boolean);
+    }
+
+    function openVideoModal(videoUrl, title) {
+      if (!videoModal || !videoPlayer) return;
+      videoModal.classList.add('visible');
+      videoModal.setAttribute('aria-hidden', 'false');
+      videoPlayer.src = videoUrl || '';
+      if (videoModalTitle) videoModalTitle.textContent = title || 'Project video';
+    }
+
+    function closeVideoModal() {
+      if (!videoModal || !videoPlayer) return;
+      videoModal.classList.remove('visible');
+      videoModal.setAttribute('aria-hidden', 'true');
+      videoPlayer.pause();
+      videoPlayer.removeAttribute('src');
+      videoPlayer.load();
+    }
+
+    function renderProjectCard(project) {
+      const tags = getProjectTags(project);
+      const tagMarkup = tags.length ? tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join('') : '<span>Featured</span>';
+
+      if (project.type === 'video') {
+        const poster = project.media_url || 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1200&q=80';
+        const projectLink = project.project_url ? `<a href="${encodeURI(project.project_url)}" target="_blank" rel="noopener noreferrer">Watch project <span aria-hidden="true">↗</span></a>` : '';
+
+        return `
+          <article class="project-card project-card-video reveal">
+            <button class="project-video-trigger" type="button" data-video-url="${escapeHtml(project.media_url || '')}" data-video-title="${escapeHtml(project.title || 'Video Project')}" aria-label="Play ${escapeHtml(project.title || 'video project')}">
+              <div class="project-art project-art-video" style="background-image: url('${escapeHtml(poster)}');">
+                <span class="video-play-badge" aria-hidden="true">▶</span>
+              </div>
+            </button>
+            <div class="project-details">
+              <p class="project-type">Video editing • video</p>
+              <h3>${escapeHtml(project.title || 'Untitled project')}</h3>
+              <p>${escapeHtml(project.description || 'No description available yet.')}</p>
+              <div class="project-stack" aria-label="Project tags">${tagMarkup}</div>
+              ${projectLink}
+            </div>
+          </article>
+        `;
+      }
+
+      const projectLink = project.project_url
+        ? `<a href="${encodeURI(project.project_url)}" target="_blank" rel="noopener noreferrer">Visit project <span aria-hidden="true">↗</span></a>`
+        : '<span class="project-link-placeholder">Project link pending</span>';
+
+      return `
+        <article class="project-card reveal">
+          <div class="project-art project-art-web" aria-hidden="true">
+            <span class="art-project-badge">Web</span>
+            <span class="art-project-title">${escapeHtml((project.title || 'Project').slice(0, 2).toUpperCase())}</span>
+          </div>
+          <div class="project-details">
+            <p class="project-type">Web development • web</p>
+            <h3>${escapeHtml(project.title || 'Untitled project')}</h3>
+            <p>${escapeHtml(project.description || 'No description available yet.')}</p>
+            <div class="project-stack" aria-label="Project tags">${tagMarkup}</div>
+            ${projectLink}
+          </div>
+        </article>
+      `;
+    }
+
+    let activeFilter = 'all';
+
+    function renderProjects(projects) {
+      if (!projectGrid) return;
+
+      const filteredProjects = projects.filter((project) => {
+        return activeFilter === 'all' ? true : project.type === activeFilter;
+      });
+
+      if (!filteredProjects.length) {
+        projectGrid.innerHTML = '';
+        if (projectState) {
+          projectState.hidden = false;
+          projectState.textContent = 'No projects match this filter yet.';
+        }
+        return;
+      }
+
+      projectGrid.innerHTML = filteredProjects.map(renderProjectCard).join('');
+      if (projectState) projectState.hidden = true;
+
+      projectGrid.querySelectorAll('[data-video-url]').forEach((trigger) => {
+        trigger.addEventListener('click', () => {
+          openVideoModal(trigger.getAttribute('data-video-url'), trigger.getAttribute('data-video-title'));
+        });
+      });
+
+      projectGrid.querySelectorAll('.reveal').forEach((item) => item.classList.add('visible'));
+    }
+
+    function initProjectGallery() {
+      const projects = getLocalProjects();
+      renderProjects(projects);
+
+      filterTabs.forEach((button) => {
+        button.addEventListener('click', () => {
+          activeFilter = button.dataset.filter || 'all';
+          filterTabs.forEach((tab) => tab.classList.toggle('active', tab === button));
+          renderProjects(getLocalProjects());
+        });
+      });
+
+      if (videoModal) {
+        videoModal.addEventListener('click', (event) => {
+          if (event.target.matches('[data-close-video-modal]')) {
+            closeVideoModal();
+          }
+        });
+
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape' && videoModal.classList.contains('visible')) {
+            closeVideoModal();
+          }
+        });
+      }
+    }
+
+    initProjectGallery();
+  </script>
   <script src="script.js"></script>
 </body>
 </html>
