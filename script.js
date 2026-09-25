@@ -94,7 +94,7 @@ const supabase = isSupabaseConfigured() ? window.supabase.createClient(SUPABASE_
 const defaultProjects = [
   {
     id: 'demo-web-1',
-    title: 'UCN',
+    title: 'U.C.N',
     type: 'web',
     description: 'A clean, community-focused website connecting youth and women to support, programs, and opportunities.',
     tags: ['HTML5', 'CSS3', 'JavaScript'],
@@ -104,23 +104,13 @@ const defaultProjects = [
   },
   {
     id: 'demo-web-2',
-    title: 'Longech BMU & Fish Market',
-    type: 'web',
+    title: 'B.M.U Site & Shop',
+    type: 'webs',
     description: 'A community-driven portal for beach cleanups, member registration, and a marketplace for local trade.',
     tags: ['HTML5', 'CSS3', 'JavaScript', 'Tailwind CSS'],
     media_url: '',
     project_url: 'https://philimonelailo.github.io/Fish-market/',
     display_order: 2
-  },
-  {
-    id: 'demo-video-1',
-    title: 'Brand Story Reel',
-    type: 'video',
-    description: 'A short branded video concept built for storytelling and audience engagement.',
-    tags: ['Video Editing', 'Storytelling', 'Social Media'],
-    media_url: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    project_url: '',
-    display_order: 3
   }
 ];
 
@@ -134,12 +124,24 @@ function updateVideoPortfolioCallout() {
   videoPortfolioCallout.classList.toggle('visible', isVideoFilterActive);
 }
 
+function normalizeProjects(projects) {
+  return (Array.isArray(projects) ? projects : []).filter(
+    (project) => !(project && (project.id === 'demo-video-1' || project.title === 'Brand Story Reel'))
+  );
+}
+
 function getLocalProjects() {
   try {
     const saved = localStorage.getItem('portfolio_projects');
     if (saved) {
       const parsed = JSON.parse(saved);
-      if (Array.isArray(parsed) && parsed.length) return parsed;
+      if (Array.isArray(parsed) && parsed.length) {
+        const normalized = normalizeProjects(parsed);
+        if (normalized.length !== parsed.length) {
+          localStorage.setItem('portfolio_projects', JSON.stringify(normalized));
+        }
+        return normalized.length ? normalized : defaultProjects;
+      }
     }
   } catch (error) {
     console.warn('Unable to read local project cache.', error);
