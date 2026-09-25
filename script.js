@@ -73,6 +73,7 @@ if ('IntersectionObserver' in window) {
 const projectGrid = document.getElementById('projectGrid');
 const projectState = document.getElementById('projectState');
 const filterTabs = document.querySelectorAll('.filter-tab');
+const videoPortfolioCallout = document.getElementById('videoPortfolioCallout');
 const videoModal = document.getElementById('videoModal');
 const videoPlayer = document.getElementById('videoPlayer');
 const videoModalTitle = document.getElementById('videoModalTitle');
@@ -125,6 +126,13 @@ const defaultProjects = [
 
 let projectData = [];
 let activeFilter = 'all';
+
+function updateVideoPortfolioCallout() {
+  if (!videoPortfolioCallout) return;
+  const isVideoFilterActive = activeFilter === 'video';
+  videoPortfolioCallout.hidden = !isVideoFilterActive;
+  videoPortfolioCallout.classList.toggle('visible', isVideoFilterActive);
+}
 
 function getLocalProjects() {
   try {
@@ -294,9 +302,12 @@ async function initProjectGallery() {
     button.addEventListener('click', () => {
       activeFilter = button.dataset.filter || 'all';
       filterTabs.forEach((tab) => tab.classList.toggle('active', tab === button));
+      updateVideoPortfolioCallout();
       renderProjects(projectData);
     });
   });
+
+  updateVideoPortfolioCallout();
 
   if (videoModal) {
     videoModal.addEventListener('click', (event) => {
@@ -332,6 +343,7 @@ contactForm?.addEventListener('submit', (event) => {
 const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();
 
-if (projectGrid) {
+if (projectGrid && !window.portfolioGalleryInitialized) {
   initProjectGallery();
+  window.portfolioGalleryInitialized = true;
 }

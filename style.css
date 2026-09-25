@@ -346,6 +346,55 @@ h1, h2, h3, p { margin-top: 0; }
 .project-filters { display: flex; flex-wrap: wrap; gap: .65rem; }
 .filter-tab { padding: .7rem 1rem; border: 1px solid rgba(7, 21, 39, 0.12); border-radius: 999px; background: rgba(255,255,255,0.75); color: var(--ink); font-size: .76rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; transition: all .2s ease; }
 .filter-tab:hover, .filter-tab.active { background: var(--ink); color: var(--white); border-color: var(--ink); }
+.video-portfolio-callout {
+  margin-top: 1.5rem;
+  padding: 1.3rem 1.4rem;
+  border: 1px solid rgba(28, 113, 170, 0.2);
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(14, 97, 132, 0.08), rgba(245, 229, 2, 0.14));
+  box-shadow: 0 18px 36px rgba(5, 25, 40, 0.08);
+}
+.video-portfolio-callout[hidden] { display: none; }
+.video-portfolio-callout__content { display: grid; gap: .7rem; }
+.video-portfolio-callout__eyebrow {
+  margin: 0;
+  color: var(--teal-dark);
+  font-size: .73rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.video-portfolio-callout h3 {
+  margin: 0;
+  font-size: clamp(1.2rem, 2vw, 1.65rem);
+  line-height: 1.2;
+  letter-spacing: -.04em;
+}
+.video-portfolio-callout p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.video-portfolio-callout a {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  width: fit-content;
+  padding: .7rem 1rem;
+  border-radius: 999px;
+  background: var(--teal);
+  color: var(--white);
+  font-size: .8rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  transition: transform .2s ease, opacity .2s ease;
+}
+.video-portfolio-callout a:hover,
+.video-portfolio-callout a:focus-visible {
+  transform: translateY(-1px);
+  opacity: .96;
+}
 .project-state { margin-top: 1rem; padding: .8rem 1rem; border-radius: 12px; background: rgba(7, 21, 39, 0.05); color: var(--muted); font-size: .9rem; }
 .project-grid { display: grid; gap: 1rem; margin-top: 2rem; grid-template-columns: repeat(1, minmax(0, 1fr)); }
 .project-card { display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--line); border-radius: 20px; background: var(--white); box-shadow: 0 3px 0 rgba(20,38,58,.03); transition: transform .25s ease, box-shadow .25s ease; min-height: 100%; }

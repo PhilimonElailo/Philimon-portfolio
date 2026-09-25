@@ -176,14 +176,21 @@
 
         <div class="project-toolbar">
           <div class="project-filters" id="projectFilters" aria-label="Project categories">
-            <button class="filter-tab active" type="button" data-filter="all">All</button>
             <button class="filter-tab" type="button" data-filter="web">Web Development</button>
             <button class="filter-tab" type="button" data-filter="video">Video Editing</button>
           </div>
         </div>
 
+        <aside class="video-portfolio-callout" id="videoPortfolioCallout" hidden>
+          <div class="video-portfolio-callout__content">
+            <p class="video-portfolio-callout__eyebrow">Video portfolio</p>
+            <h3>My video editing portfolio is hosted on Google Drive.</h3>
+            <p>Explore a curated selection of projects, edits, and storytelling work in my Google Drive portfolio.</p>
+            <a href="https://drive.google.com/drive/folders/1Y1QMm45l-FJUntBqCcyi9mtMz5uCr7BA?usp=drive_link" target="_blank" rel="noopener noreferrer">Explore the portfolio <span aria-hidden="true">↗</span></a>
+          </div>
+        </aside>
+
         <div class="project-grid" id="projectGrid" aria-live="polite"></div>
-        <div class="project-state" id="projectState" hidden>No projects available for this filter yet.</div>
       </div>
     </section>
 
@@ -428,6 +435,14 @@
     }
 
     let activeFilter = 'all';
+    const videoPortfolioCallout = document.getElementById('videoPortfolioCallout');
+
+    function updateVideoPortfolioCallout() {
+      if (!videoPortfolioCallout) return;
+      const isVideoFilterActive = activeFilter === 'video';
+      videoPortfolioCallout.hidden = !isVideoFilterActive;
+      videoPortfolioCallout.classList.toggle('visible', isVideoFilterActive);
+    }
 
     function renderProjects(projects) {
       if (!projectGrid) return;
@@ -460,11 +475,13 @@
     function initProjectGallery() {
       const projects = getLocalProjects();
       renderProjects(projects);
+      updateVideoPortfolioCallout();
 
       filterTabs.forEach((button) => {
         button.addEventListener('click', () => {
           activeFilter = button.dataset.filter || 'all';
           filterTabs.forEach((tab) => tab.classList.toggle('active', tab === button));
+          updateVideoPortfolioCallout();
           renderProjects(getLocalProjects());
         });
       });
@@ -485,6 +502,7 @@
     }
 
     initProjectGallery();
+    window.portfolioGalleryInitialized = true;
   </script>
   <script src="script.js"></script>
 </body>
