@@ -166,7 +166,8 @@
   <script>
     const defaultProjects = [
       { id: 'demo-web-1', title: 'U.C.N', type: 'web', description: 'A clean, community-focused website connecting youth and women to support, programs, and opportunities.', tags: ['HTML5', 'CSS3', 'JavaScript'], media_url: '', project_url: 'https://philimonelailo.github.io/ucn/', display_order: 1 },
-      { id: 'demo-web-2', title: 'B.M.U Site & Shop', type: 'web', description: 'A community-driven portal for beach cleanups, member registration, and a marketplace for local trade.', tags: ['HTML5', 'CSS3', 'JavaScript', 'Tailwind CSS'], media_url: '', project_url: 'https://philimonelailo.github.io/Fish-market/', display_order: 2 }
+      { id: 'demo-web-2', title: 'B.M.U Site & Shop', type: 'web', description: 'A community-driven portal for beach cleanups, member registration, and a marketplace for local trade.', tags: ['HTML5', 'CSS3', 'JavaScript', 'Tailwind CSS'], media_url: '', project_url: 'https://philimonelailo.github.io/Fish-market/', display_order: 2 },
+      { id: 'demo-web-3', title: 'Banking Transaction Interface', type: 'web', description: 'A modern, secure web interface for managing banking transactions, tracking account balances, and reviewing financial activity.', tags: ['HTML5', 'CSS3', 'JavaScript'], media_url: '', project_url: 'https://philimonelailo.github.io/banking-transaction-interface/', display_order: 3 }
     ];
 
     const adminLogin = document.getElementById('adminLogin');
@@ -200,7 +201,13 @@
     function getProjects() {
       try {
         const saved = JSON.parse(localStorage.getItem('portfolio_projects') || 'null');
-        if (Array.isArray(saved) && saved.length) return saved;
+        if (Array.isArray(saved) && saved.length) {
+          if (!saved.some((project) => project.id === 'demo-web-3')) {
+            saved.push(defaultProjects.find((project) => project.id === 'demo-web-3'));
+            localStorage.setItem('portfolio_projects', JSON.stringify(saved));
+          }
+          return saved;
+        }
       } catch (error) {
         console.warn('Could not read saved projects.', error);
       }

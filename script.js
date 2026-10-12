@@ -95,7 +95,7 @@ const defaultProjects = [
   {
     id: 'demo-web-1',
     title: 'U.C.N',
-    type: 'web',
+    
     description: 'A clean, community-focused website connecting youth and women to support, programs, and opportunities.',
     tags: ['HTML5', 'CSS3', 'JavaScript'],
     media_url: '',
@@ -111,6 +111,16 @@ const defaultProjects = [
     media_url: '',
     project_url: 'https://philimonelailo.github.io/Fish-market/',
     display_order: 2
+  },
+  {
+    id: 'demo-web-3',
+    title: 'Banking Transaction Interface',
+    type: 'web',
+    description: 'A modern, secure web interface for managing banking transactions, tracking account balances, and reviewing financial activity.',
+    tags: ['HTML5', 'CSS3', 'JavaScript'],
+    media_url: '',
+    project_url: 'https://philimonelailo.github.io/banking-transaction-interface/',
+    display_order: 3
   }
 ];
 
@@ -137,10 +147,15 @@ function getLocalProjects() {
       const parsed = JSON.parse(saved);
       if (Array.isArray(parsed) && parsed.length) {
         const normalized = normalizeProjects(parsed);
-        if (normalized.length !== parsed.length) {
-          localStorage.setItem('portfolio_projects', JSON.stringify(normalized));
+        const projects = normalized.length ? normalized : defaultProjects;
+        const hasBankingProject = projects.some((project) => project.id === 'demo-web-3');
+        if (!hasBankingProject) {
+          projects.push(defaultProjects.find((project) => project.id === 'demo-web-3'));
         }
-        return normalized.length ? normalized : defaultProjects;
+        if (normalized.length !== parsed.length || !hasBankingProject) {
+          localStorage.setItem('portfolio_projects', JSON.stringify(projects));
+        }
+        return projects;
       }
     }
   } catch (error) {
