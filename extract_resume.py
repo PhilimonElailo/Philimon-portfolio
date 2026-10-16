@@ -1,7 +1,7 @@
 import os
 import PyPDF2
 
-p = r"c:\Users\Renter\Desktop\Philimon's Portfolio\resume.pdf"
+p = os.path.join(os.path.dirname(__file__), "Resume (Philimon  Elailo).pdf")
 print('exists:', os.path.exists(p))
 reader = PyPDF2.PdfReader(p)
 print('pages:', len(reader.pages))
